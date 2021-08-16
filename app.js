@@ -16,17 +16,21 @@
       });
     }
 
+    function onSizeChange(evt) {
+      props.handleSizeChange(evt.target.value);
+    }
+
     return (
       <div className="field-group">
         <label htmlFor="size-options">Size:</label>
-        <select defaultValue={props.size} name="sizeOptions" id="size-options">
+        <select defaultValue={props.size} name="sizeOptions" id="size-options" onChange={onSizeChange}>
           // generate options
           {sizeOptions()}
         </select>
       </div>
     );
   }
-
+  // ColorSelector component
   function ColorSelector(props) {
     function colorOptions() {
       return props.colors.map(function(name) {
@@ -73,6 +77,13 @@
 
     var [colors, setColors] = React.useState(window.Inventory.allColors);
 
+    function handleSizeChange(selectedSize) {
+      var availableColors = window.Inventory.bySize[selectedSize];
+
+      setColors(availableColors);
+    }
+
+
     // curly braces are for any JavaScript expression that needs to be passed as a prop (size={8})
     // to pass a string it can be like a regular looking HTML attribute (color="red")
     return (
@@ -81,7 +92,7 @@
           <ProductImage color={color}/>
         </div>
         <div className="selectors">
-          <SizeSelector size={size} sizes={sizes}/>
+          <SizeSelector size={size} sizes={sizes} handleSizeChange={handleSizeChange}/>
           <ColorSelector color={color} colors={colors} />
         </div>
       </div>
