@@ -42,10 +42,14 @@
       });
     }
 
+    function onColorChange(evt) {
+      props.handleColorChange(evt.target.value);
+    }
+
     return (
       <div className="field-group">
         <label htmlFor="color-options">Color:</label>
-        <select defaultValue={props.color} name="colorOptions" id="color-options">
+        <select defaultValue={props.color} name="colorOptions" id="color-options" onChange={onColorChange}>
           {colorOptions()}
         </select>
       </div>
@@ -81,6 +85,22 @@
       var availableColors = window.Inventory.bySize[selectedSize];
 
       setColors(availableColors);
+      setSize(selectedSize);
+
+      if (availableColors.indexOf(color) === -1) {
+        setColor(availableColors[0]);
+      }
+    }
+
+    function handleColorChange(selectedColor) {
+      var availableSizes = window.Inventory.byColor[selectedColor];
+
+      setSizes(availableSizes);
+      setColor(selectedColor);
+
+      if (availableSizes.indexOf(size) === -1) {
+        setSize(availableSizes[0]);
+      }
     }
 
 
@@ -93,7 +113,7 @@
         </div>
         <div className="selectors">
           <SizeSelector size={size} sizes={sizes} handleSizeChange={handleSizeChange}/>
-          <ColorSelector color={color} colors={colors} />
+          <ColorSelector color={color} colors={colors} handleColorChange={handleColorChange}/>
         </div>
       </div>
     );
