@@ -20,7 +20,7 @@
     return (
       <div className="field-group">
         <label htmlFor="size-options">Size:</label>
-        <select name="sizeOptions" id="size-options">
+        <select defaultValue={props.size} name="sizeOptions" id="size-options">
           // generate options
           {sizeOptions()}
         </select>
@@ -32,18 +32,21 @@
   // component starts with capital letter
   function ProductImage(props) {
     // JSX expression
-    return <img src="assets/red.jpg" width="65%" alt="Product Image" />;
+    // convert the whole string literal into an expression by surrounding it with braces
+    return <img src={"assets/" + props.color + ".jpg"} width="65%" alt="Product Image" />;
   }
 
   // ProductCustomizer component
   function ProductCustomizer(props) {
+    // curly braces are for any JavaScript expression that needs to be passed as a prop (size={8})
+    // to pass a string it can be like a regular looking HTML attribute (color="red")
     return (
       <div className="customizer">
         <div className="product-image">
-          <ProductImage />
+          <ProductImage color="red"/>
         </div>
         <div className="selectors">
-          <SizeSelector />
+          <SizeSelector size={8}/>
         </div>
       </div>
     );
