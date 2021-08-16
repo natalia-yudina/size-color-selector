@@ -33,7 +33,8 @@
   function ProductImage(props) {
     // JSX expression
     // convert the whole string literal into an expression by surrounding it with braces
-    return <img src={"assets/" + props.color + ".jpg"} width="65%" alt="Product Image" />;
+    // using template literal
+    return <img src={`assets/${props.color}.jpg`} width="65%" alt="Product Image" />;
   }
 
   // ProductCustomizer component
