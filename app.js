@@ -1,5 +1,32 @@
 (function () {
   "use strict";
+  // SizeSelector component
+  function SizeSelector(props) {
+
+    function sizeOptions() {
+      // array of all sizes
+      var sizes = window.Inventory.allSizes;
+
+      return sizes.map(function(num) {
+        // num is element of array
+        return (
+          <option value={num} key={num}>
+            {num}
+          </option>
+        );
+      });
+    }
+
+    return (
+      <div className="field-group">
+        <label htmlFor="size-options">Size:</label>
+        <select name="sizeOptions" id="size-options">
+          // generate options
+          {sizeOptions()}
+        </select>
+      </div>
+    );
+  }
 
   // ProductImage component
   // component starts with capital letter
@@ -13,8 +40,10 @@
     return (
       <div className="customizer">
         <div className="product-image">
-          // capitalized
           <ProductImage />
+        </div>
+        <div className="selectors">
+          <SizeSelector />
         </div>
       </div>
     );
