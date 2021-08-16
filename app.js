@@ -1,14 +1,30 @@
 (function () {
   "use strict";
 
+  // ProductImage component
+  // component starts with capital letter
+  function ProductImage(props) {
+    // <img src="assets/red.jpg" alt="Product Image" />
+    return React.createElement("img", {
+      src: "assets/red.jpg",
+      width: "65%",
+      alt: "Product Image",
+    });
+  }
+
   // //React.createElement(1 - what type of element we are creating, 2 - props to pass into the element, 3 - what should be inside element)
 
-  // redefind element as a component
+  // ProductCustomizer component
   function ProductCustomizer(props) {
     return React.createElement(
       "div",
       { className: "customizer" },
-      "Product customizer will go here"
+      // creating element for ProductImage component
+      React.createElement(
+        "div",
+        { className: "product-image" },
+        React.createElement(ProductImage)
+      )
     );
   }
 
