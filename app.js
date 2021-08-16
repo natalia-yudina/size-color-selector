@@ -4,10 +4,9 @@
   function SizeSelector(props) {
 
     function sizeOptions() {
-      // array of all sizes
-      var sizes = window.Inventory.allSizes;
+      // props.sizes - array of all sizes
 
-      return sizes.map(function(num) {
+      return props.sizes.map(function(num) {
         // num is element of array
         return (
           <option value={num} key={num}>
@@ -39,15 +38,27 @@
 
   // ProductCustomizer component
   function ProductCustomizer(props) {
+
+    var [size, setSize] = React.useState(8);
+
+    // the same as
+    // var sizeState = React.useState(8);
+    // var size = sizeState[0];
+    // var setSize = sizeState[1];
+
+    var [sizes, setSizes] = React.useState(window.Inventory.allSizes);
+
+    var [color, setColor] = React.useState("red");
+
     // curly braces are for any JavaScript expression that needs to be passed as a prop (size={8})
     // to pass a string it can be like a regular looking HTML attribute (color="red")
     return (
       <div className="customizer">
         <div className="product-image">
-          <ProductImage color="red"/>
+          <ProductImage color={color}/>
         </div>
         <div className="selectors">
-          <SizeSelector size={8}/>
+          <SizeSelector size={size} sizes={sizes}/>
         </div>
       </div>
     );
